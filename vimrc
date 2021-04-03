@@ -36,7 +36,7 @@ Plugin 'jiangmiao/auto-pairs'
 "Plugin 'editorconfig/editorconfig-vim'
 "Plugin 'MattesGroeger/vim-bookmarks'
 "Plugin 'tpope/vim-fugitive'
-"Plugin 'junegunn/goyo.vim'
+"Plugin 'junegunn/yo.vim'
 "Plugin 'mattn/emmet-vim'
 "Plugin 'NLKNguyen/papercolor-theme'
 "Plugin 'rizzatti/dash.vim'
@@ -71,6 +71,10 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 set nobackup            " Disable backup files.
 set noswapfile          " Disable swap files.
 set nowritebackup       " Disable auto backup before overwriting a file.
+
+" highlight
+set cursorline
+set cursorcolumn
 
 " History
 set history=1000        " Number of lines of command line history.
@@ -163,26 +167,26 @@ map <C-e> :NERDTreeToggle<CR>
 " end NERDTree
 
 
-"" FZF
-"" prevent fzf buffers in nerdtree
-"let g:fzf_layout = { 'window': 'let g:launching_fzf = 1 | keepalt topleft 100split enew' }
-"autocmd FileType nerdtree let t:nerdtree_winnr = bufwinnr('%')
-"autocmd BufWinEnter * call PreventBuffersInNERDTree()
-"
-"function! PreventBuffersInNERDTree()
-"  if bufname('#') =~ 'NERD_tree' && bufname('%') !~ 'NERD_tree'
-"    \ && exists('t:nerdtree_winnr') && bufwinnr('%') == t:nerdtree_winnr
-"    \ && &buftype == '' && !exists('g:launching_fzf')
-"    let bufnum = bufnr('%')
-"    close
-"    exe 'b ' . bufnum
-"  endif
-"  if exists('g:launching_fzf') | unlet g:launching_fzf | endif
-"endfunction
-"
-"nmap <C-p> :Files<CR>
-"
-"" end FZF
+" FZF
+" prevent fzf buffers in nerdtree
+let g:fzf_layout = { 'window': 'let g:launching_fzf = 1 | keepalt topleft 100split enew' }
+autocmd FileType nerdtree let t:nerdtree_winnr = bufwinnr('%')
+autocmd BufWinEnter * call PreventBuffersInNERDTree()
+
+function! PreventBuffersInNERDTree()
+  if bufname('#') =~ 'NERD_tree' && bufname('%') !~ 'NERD_tree'
+    \ && exists('t:nerdtree_winnr') && bufwinnr('%') == t:nerdtree_winnr
+    \ && &buftype == '' && !exists('g:launching_fzf')
+    let bufnum = bufnr('%')
+    close
+    exe 'b ' . bufnum
+  endif
+  if exists('g:launching_fzf') | unlet g:launching_fzf | endif
+endfunction
+
+nmap <C-p> :Files<CR>
+
+" end FZF
 "
 "" Powerline configuration
 "set t_Co=256
@@ -204,10 +208,15 @@ map <C-e> :NERDTreeToggle<CR>
 "nmap <Leader>f <Plug>(Prettier)
 
 " noremap
-    noremap gh <C-W>h
-    noremap gk <C-W>k
-    noremap gl <C-W>l
-    noremap gj <C-W>j
+noremap gh <C-W>h
+noremap gk <C-W>k
+noremap gl <C-W>l
+noremap gj <C-W>j
 
 " save
 noremap <Leader>s :update<CR>
+
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <TAB> pumvisible() ? "\<C-p>" : "\<Up>"
