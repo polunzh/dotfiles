@@ -219,4 +219,3 @@ noremap <Leader>s :update<CR>
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr> <TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
